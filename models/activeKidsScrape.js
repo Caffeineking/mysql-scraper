@@ -6,7 +6,6 @@ module.exports = function (sequelize, DataTypes) {
         link: {
             type: DataTypes.STRING,
         },
-        
     },
         {
         timestamps: false

@@ -66,13 +66,54 @@ app.get("/", function(req, res) {
           });
         }
       });
+
+
     });
   
     // Send a "Scrape Complete" message to the browser
     res.send("Scrape Complete");
   });
 
+  //scraping timeout.com
 
+app.get("/scrapeTimeOut", function(req, res) {
+    // Make a request via axios for the news section of `ycombinator`
+    axios.get("https://www.timeout.com/los-angeles/kids/things-to-do-in-los-angeles-with-kids").then(function(response) {
+      // Load the html body from axios into cheerio
+      var $ = cheerio.load(response.data);
+      // For each element with a "title" class
+      $(".card-title").each(function(i, element) {
+        // Save the text and href of each link enclosed in the current element
+        var title = $(element).children("a").text();
+        var link = $(element).children("a").attr("href");
+        // var title: = $(element)
+  
+        // If this found element had both a title and a link
+        if (title && link) {
+          // Insert the data in the scrapedData db
+          db.activeKidsScrape.create({
+            title: title,
+            link: link
+          },
+          function(err, inserted) {
+            if (err) {
+              // Log the error if one is encountered during the query
+              console.log(err);
+            }
+            else {
+              // Otherwise, log the inserted data
+              console.log(inserted);
+            }
+          });
+        }
+      });
+
+      
+    });
+  
+    // Send a "Scrape Complete" message to the browser
+    res.send("Scrape Complete");
+  });
 
 
 
