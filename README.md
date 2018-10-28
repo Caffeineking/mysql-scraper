@@ -2,6 +2,8 @@
 
 npm -i to install packages.
 
-* change info on config.json depnding on the machine's settings
+* change info on config.json depnding on the machine's settings.
 
-* create database on mysql for initial setup scrapeDb;
+* create database on mysql for initial setup scrapeDb.
+
+* lets keep on Skraping.
